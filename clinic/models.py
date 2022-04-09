@@ -50,7 +50,7 @@ class Patient(models.Model):
         return self.user.id
 
     def __str__(self):
-        return self.user.first_name + " (" + self.symptoms + ")"
+        return self.get_name
 
 
 class Appointment(models.Model):
@@ -61,6 +61,23 @@ class Appointment(models.Model):
     appointmentDate = models.DateField(auto_now=True)
     description = models.TextField(max_length=500)
     status = models.BooleanField(default=False)
+
+    def __str__(self):
+        patient = Patient.objects.filter(id)
+        return f'{self.patientName} - {self.patientId}'
+
+
+class Visit(models.Model):
+    patient = models.OneToOneField(Patient, on_delete=models.DO_NOTHING)
+    description = models.TextField(default='N/A')
+    doctor = models.OneToOneField(Doctor, on_delete=models.DO_NOTHING)
+    priority = models.CharField(
+        choices=(
+            ('low', 'Low'),
+            ('medium', 'Medium'),
+            ('high', 'High'),),
+        max_length=20
+    )
 
 
 class PatientDischargeDetails(models.Model):

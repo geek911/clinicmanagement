@@ -784,5 +784,22 @@ def contactus_view(request):
 # ------------------------ ADMIN RELATED VIEWS END ------------------------------
 # ---------------------------------------------------------------------------------
 
+def admin_add_visit_view(request):
+    visitForm = forms.VisitForm()
+    mydict = {'visitForm': visitForm, }
+    if request.method == 'POST':
+        visitForm = forms.VisitForm(request.POST)
+        if visitForm.is_valid():
+            visit = visitForm.save(commit=False)
+            # appointment.doctorId = request.POST.get('doctorId')
+            # appointment.patientId = request.POST.get('patientId')
+            # appointment.doctorName = models.User.objects.get(id=request.POST.get('doctorId')).first_name
+            # appointment.patientName = models.User.objects.get(id=request.POST.get('patientId')).first_name
+            # appointment.status = True
+            visit.save()
+        return HttpResponseRedirect('visits')
+    return render(request, 'clinic/admin_add_visit.html', context=mydict)
+
+
 def visit_view(request):
     return render(request, 'clinic/admin_view_visit.html', )

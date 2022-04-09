@@ -71,6 +71,12 @@ class PatientAppointmentForm(forms.ModelForm):
         fields = ['description', 'status']
 
 
+class VisitForm(forms.ModelForm):
+    class Meta:
+        model = models.Visit
+        fields = '__all__'
+
+
 # for contact us page
 class ContactusForm(forms.Form):
     Name = forms.CharField(max_length=30)

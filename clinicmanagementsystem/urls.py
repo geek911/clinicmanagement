@@ -75,7 +75,9 @@ urlpatterns += [
     path('doctor-view-appointment', views.doctor_view_appointment_view, name='doctor-view-appointment'),
     path('doctor-delete-appointment', views.doctor_delete_appointment_view, name='doctor-delete-appointment'),
     path('delete-appointment/<int:pk>', views.delete_appointment_view, name='delete-appointment'),
-    path('visits', views.visit_view, name='visit')
+
+    path('visits', views.visit_view, name='visit'),
+    path('add_visits', views.admin_add_visit_view, name='add_visit')
 ]
 
 # ---------FOR PATIENT RELATED URLS-------------------------------------
