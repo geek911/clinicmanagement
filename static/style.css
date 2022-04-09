@@ -61,6 +61,10 @@ main {
   background-image: url("http://www.entypo.com/images//calendar.svg");
 }
 
+.menu ul li.icon-visits {
+  background-image: url("http://www.entypo.com/images//man.svg");
+}
+
 .menu ul li:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }

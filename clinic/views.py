@@ -779,7 +779,10 @@ def contactus_view(request):
             return render(request, 'clinic/contactussuccess.html')
     return render(request, 'clinic/contactus.html', {'form': sub})
 
+
 # ---------------------------------------------------------------------------------
 # ------------------------ ADMIN RELATED VIEWS END ------------------------------
 # ---------------------------------------------------------------------------------
 
+def visit_view(request):
+    return render(request, 'clinic/admin_view_visit.html', )
