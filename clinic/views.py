@@ -801,5 +801,10 @@ def admin_add_visit_view(request):
     return render(request, 'clinic/admin_add_visit.html', context=mydict)
 
 
+def admin_view_visits(request):  # for profile picture of patient in sidebar
+    visits = models.Visit.objects.all()
+    return render(request, 'clinic/admin_visit_list.html', {'visits': visits})
+
+
 def visit_view(request):
     return render(request, 'clinic/admin_view_visit.html', )

@@ -68,9 +68,9 @@ class Appointment(models.Model):
 
 
 class Visit(models.Model):
-    patient = models.OneToOneField(Patient, on_delete=models.DO_NOTHING)
+    patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
     description = models.TextField(default='N/A')
-    doctor = models.OneToOneField(Doctor, on_delete=models.DO_NOTHING)
+    doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING)
     priority = models.CharField(
         choices=(
             ('low', 'Low'),
@@ -78,6 +78,8 @@ class Visit(models.Model):
             ('high', 'High'),),
         max_length=20
     )
+
+    created_on = models.DateTimeField(auto_now_add=True)
 
 
 class PatientDischargeDetails(models.Model):
