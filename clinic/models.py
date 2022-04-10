@@ -95,7 +95,7 @@ class Drug(models.Model):
 
 class Diagnosis(models.Model):
     visit = models.ForeignKey(Visit, on_delete=models.DO_NOTHING)
-    drug = models.OneToOneField(Drug, null=True, blank=True, on_delete=models.DO_NOTHING)
+    drug = models.ForeignKey(Drug, null=True, blank=True, on_delete=models.DO_NOTHING)
     description = models.TextField()
     dose = models.PositiveIntegerField()
     created_on = models.DateTimeField(auto_now_add=True)

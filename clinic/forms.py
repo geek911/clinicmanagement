@@ -79,10 +79,6 @@ class VisitForm(forms.ModelForm):
 
 class DiagnosisForm(forms.ModelForm):
 
-    def __init__(self, id, *args, **kwargs):
-        super(DiagnosisForm, self).__init__(*args, **kwargs)
-
-        self.initial['visit'] = models.Visit.objects.get(id=id).id
 
     class Meta:
         model = models.Diagnosis

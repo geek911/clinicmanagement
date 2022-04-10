@@ -96,5 +96,6 @@ urlpatterns += [
     path('list_visits', views.admin_view_visits, name='list_visit'),
 
     path('diagnosises', views.diagnosis_list, name='list_diagnosis'),
-    path('add_diagnosis/<id>', views.diagnosis_add, name='add_diagnosis'),
+    path('add_diagnosis', views.diagnosis_add, name='add_diagnosis'),
+    path('history_diagnosis/<patient_id>', views.diagnosis_history_list, name='history_diagnosis')
 ]

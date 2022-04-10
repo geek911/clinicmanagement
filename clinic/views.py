@@ -1,13 +1,15 @@
-from django.shortcuts import render, redirect, reverse
-from . import forms, models
-from django.db.models import Sum
-from django.contrib.auth.models import Group
-from django.http import HttpResponseRedirect
-from django.core.mail import send_mail
-from django.contrib.auth.decorators import login_required, user_passes_test
-from datetime import datetime, timedelta, date
+from datetime import date
+
 from django.conf import settings
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import Group
+from django.core.mail import send_mail
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, reverse
+from django.views.generic import *
+
+from . import forms, models
 
 
 # Create your views here.
@@ -373,7 +375,7 @@ def admin_discharge_patient_view(request):
 
 
 @login_required(login_url='adminlogin')
-@user_passes_test(is_admin)
+@user_passes_test(is_doctor)
 def discharge_patient_view(request, pk):
     patient = models.Patient.objects.get(id=pk)
     days = (date.today() - patient.admitDate)  # 2 days, 0:00:00
@@ -426,7 +428,6 @@ def discharge_patient_view(request, pk):
 import io
 from xhtml2pdf import pisa
 from django.template.loader import get_template
-from django.template import Context
 from django.http import HttpResponse
 
 
@@ -527,7 +528,7 @@ def reject_appointment_view(request, pk):
 # ------------------------ DOCTOR RELATED VIEWS START ------------------------------
 # ---------------------------------------------------------------------------------
 @login_required(login_url='doctorlogin')
-@user_passes_test(is_doctor)
+# @user_passes_test(is_doctor)
 def doctor_dashboard_view(request):
     # for three cards
     patientcount = models.Patient.objects.all().filter(status=True, assignedDoctorId=request.user.id).count()
@@ -790,13 +791,7 @@ def admin_add_visit_view(request):
     if request.method == 'POST':
         visitForm = forms.VisitForm(request.POST)
         if visitForm.is_valid():
-            visit = visitForm.save(commit=False)
-            # appointment.doctorId = request.POST.get('doctorId')
-            # appointment.patientId = request.POST.get('patientId')
-            # appointment.doctorName = models.User.objects.get(id=request.POST.get('doctorId')).first_name
-            # appointment.patientName = models.User.objects.get(id=request.POST.get('patientId')).first_name
-            # appointment.status = True
-            visit.save()
+            visitForm.save()
         return HttpResponseRedirect('visits')
     return render(request, 'clinic/admin_add_visit.html', context=mydict)
 
@@ -815,15 +810,32 @@ def diagnosis_list(request):
     return render(request, 'clinic/doctor_diagnosis_list.html', {'visits': visits})
 
 
-def diagnosis_add(request, id):
-    diagnosisForm = forms.DiagnosisForm(id=id)
-    mydict = {'diagnosisForm': diagnosisForm, }
-    if request.method == 'POST':
-        diagnosisForm = forms.VisitForm(request.POST)
-        if diagnosisForm.is_valid():
-            visit = diagnosisForm.save(commit=False)
+def diagnosis_history_list(request, patient_id):
+    patients_diagnosis = models.Diagnosis.objects.all()
+    return render(request, 'clinic/doctor_diagnosis_history.html', {'patients_diagnosis': patients_diagnosis})
 
-            visit.save()
-        return HttpResponseRedirect('list_diagnosis')
+
+# class DiagnosisView(CreateView):
+#     model = models.Diagnosis
+#     form_class = forms.DiagnosisForm
+#     template_name = 'clinic/doctor_diagnosis_add.html'
+#     success_url = redirect('list_diagnosis')
+#
+#     def get_initial(self):
+#         self.initial['visit'] = models.Visit.objects.get(id=self.request.GET['id']).id
+
+@login_required(login_url='patientlogin')
+@user_passes_test(is_doctor)
+def diagnosis_add(request, id=None):
+    if request.method == 'POST':
+        diagnosisForm = forms.DiagnosisForm(request.POST)
+        if diagnosisForm.is_valid():
+            diagnosisForm.save()
+            return redirect('list_diagnosis')
+
+    elif request.method == 'GET':
+        diagnosisForm = forms.DiagnosisForm()
+
+    mydict = {'diagnosisForm': diagnosisForm, }
 
     return render(request, 'clinic/doctor_diagnosis_add.html', mydict)

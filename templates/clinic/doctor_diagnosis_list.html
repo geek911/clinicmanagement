@@ -46,9 +46,9 @@
                         <td> {{ visit.patient.user.last_name }}</td>
                         <td> {{ visit.patient.mobile }}</td>
                         <td> {{ visit.patient.symptoms }}</td>
-                        <td><a class="btn btn-primary btn-xs" href="{% url 'add_diagnosis' visit.id %}"> <span class="glyphicon glyphicon-log-out"></span> </a></td>
-                        <td><a class="btn btn-primary btn-xs" href="{% url 'add_diagnosis' visit.id %}"> <span class="glyphicon glyphicon-log-out"></span> </a></td>
-                        <td><a class="btn btn-primary btn-xs" href=""> <span class="glyphicon glyphicon-log-out"></span> </a></td>
+                        <td><a class="btn btn-primary btn-xs" href="{% url 'add_diagnosis' %}"> <span class="glyphicon glyphicon-log-out"></span> </a></td>
+                        <td><a class="btn btn-primary btn-xs" href="{% url 'history_diagnosis' visit.patient.id %}"> <span class="glyphicon glyphicon-log-out"></span> </a></td>
+                        <td><a class="btn btn-primary btn-xs" href="{% url 'discharge-patient' visit.patient.pk %}"> <span class="glyphicon glyphicon-log-out"></span> </a></td>
 {#                        <td> {{ patient. }}</td>#}
 {#                        <td>{{ p.symptoms }}</td>#}
 {#                        <td>{{ p.mobile }}</td>#}
