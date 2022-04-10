@@ -77,6 +77,18 @@ class VisitForm(forms.ModelForm):
         fields = '__all__'
 
 
+class DiagnosisForm(forms.ModelForm):
+
+    def __init__(self, id, *args, **kwargs):
+        super(DiagnosisForm, self).__init__(*args, **kwargs)
+
+        self.initial['visit'] = models.Visit.objects.get(id=id).id
+
+    class Meta:
+        model = models.Diagnosis
+        fields = '__all__'
+
+
 # for contact us page
 class ContactusForm(forms.Form):
     Name = forms.CharField(max_length=30)

@@ -75,10 +75,6 @@ urlpatterns += [
     path('doctor-view-appointment', views.doctor_view_appointment_view, name='doctor-view-appointment'),
     path('doctor-delete-appointment', views.doctor_delete_appointment_view, name='doctor-delete-appointment'),
     path('delete-appointment/<int:pk>', views.delete_appointment_view, name='delete-appointment'),
-
-    path('visits', views.visit_view, name='visit'),
-    path('add_visits', views.admin_add_visit_view, name='add_visit'),
-    path('list_visits', views.admin_view_visits, name='list_visit'),
 ]
 
 # ---------FOR PATIENT RELATED URLS-------------------------------------
@@ -92,4 +88,13 @@ urlpatterns += [
     path('searchdoctor', views.search_doctor_view, name='searchdoctor'),
     path('patient-discharge', views.patient_discharge_view, name='patient-discharge'),
 
+]
+
+urlpatterns += [
+    path('visits', views.visit_view, name='visit'),
+    path('add_visits', views.admin_add_visit_view, name='add_visit'),
+    path('list_visits', views.admin_view_visits, name='list_visit'),
+
+    path('diagnosises', views.diagnosis_list, name='list_diagnosis'),
+    path('add_diagnosis/<id>', views.diagnosis_add, name='add_diagnosis'),
 ]

@@ -1,0 +1,66 @@
+{% extends 'clinic/doctor_base.html' %}
+{% block content %}
+    {% load static %}
+
+    <head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"
+              id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+        <style media="screen">
+            a:link {
+                text-decoration: none;
+            }
+
+            h6 {
+                text-align: center;
+            }
+
+            .row {
+                margin: 100px;
+            }
+        </style>
+    </head>
+
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h6 class="panel-title">Patients Diagnosis</h6>
+            </div>
+            <table class="table table-hover" id="dev-table">
+                <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Contact</th>
+                    <th>Symptoms</th>
+                    <th>Diagnose</th>
+                    <th>History</th>
+                    <th>Discharge</th>
+                </tr>
+                </thead>
+                {% for visit in visits %}
+                    <tr>
+                        <td> {{ visit.patient.user.first_name }}</td>
+                        <td> {{ visit.patient.user.last_name }}</td>
+                        <td> {{ visit.patient.mobile }}</td>
+                        <td> {{ visit.patient.symptoms }}</td>
+                        <td><a class="btn btn-primary btn-xs" href="{% url 'add_diagnosis' visit.id %}"> <span class="glyphicon glyphicon-log-out"></span> </a></td>
+                        <td><a class="btn btn-primary btn-xs" href="{% url 'add_diagnosis' visit.id %}"> <span class="glyphicon glyphicon-log-out"></span> </a></td>
+                        <td><a class="btn btn-primary btn-xs" href=""> <span class="glyphicon glyphicon-log-out"></span> </a></td>
+{#                        <td> {{ patient. }}</td>#}
+{#                        <td>{{ p.symptoms }}</td>#}
+{#                        <td>{{ p.mobile }}</td>#}
+{#                        <td><a class="btn btn-primary btn-xs" href="{% url 'discharge-patient' patient.id %}"><span#}
+{#                                class="glyphicon glyphicon-log-out"></span></a></td>#}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+
+    </div>
+
+
+{% endblock content %}

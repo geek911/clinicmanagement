@@ -808,3 +808,22 @@ def admin_view_visits(request):  # for profile picture of patient in sidebar
 
 def visit_view(request):
     return render(request, 'clinic/admin_view_visit.html', )
+
+
+def diagnosis_list(request):
+    visits = models.Visit.objects.all()
+    return render(request, 'clinic/doctor_diagnosis_list.html', {'visits': visits})
+
+
+def diagnosis_add(request, id):
+    diagnosisForm = forms.DiagnosisForm(id=id)
+    mydict = {'diagnosisForm': diagnosisForm, }
+    if request.method == 'POST':
+        diagnosisForm = forms.VisitForm(request.POST)
+        if diagnosisForm.is_valid():
+            visit = diagnosisForm.save(commit=False)
+
+            visit.save()
+        return HttpResponseRedirect('list_diagnosis')
+
+    return render(request, 'clinic/doctor_diagnosis_add.html', mydict)

@@ -81,6 +81,25 @@ class Visit(models.Model):
 
     created_on = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'Visit : {self.id} - {self.patient.get_name}'
+
+
+class Drug(models.Model):
+    name = models.CharField(max_length=25)
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'{self.name} - {self.quantity} Left'
+
+
+class Diagnosis(models.Model):
+    visit = models.ForeignKey(Visit, on_delete=models.DO_NOTHING)
+    drug = models.OneToOneField(Drug, null=True, blank=True, on_delete=models.DO_NOTHING)
+    description = models.TextField()
+    dose = models.PositiveIntegerField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
 
 class PatientDischargeDetails(models.Model):
     patientId = models.PositiveIntegerField(null=True)
