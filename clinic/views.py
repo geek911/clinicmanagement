@@ -811,7 +811,7 @@ def visit_view(request):
 
 
 def diagnosis_list(request):
-    visits = models.Visit.objects.all()
+    visits = models.Visit.objects.filter(doctor__user=request.user)
     return render(request, 'clinic/doctor_diagnosis_list.html', {'visits': visits})
 
 
