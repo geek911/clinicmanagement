@@ -107,6 +107,9 @@ def is_doctor(user):
 def is_patient(user):
     return user.groups.filter(name='PATIENT').exists()
 
+def is_pharmacist(user):
+    return user.groups.filter(name='PHARMACIST').exists()
+
 
 # ---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,DOCTOR OR PATIENT
 def afterlogin_view(request):
@@ -528,7 +531,7 @@ def reject_appointment_view(request, pk):
 # ------------------------ DOCTOR RELATED VIEWS START ------------------------------
 # ---------------------------------------------------------------------------------
 @login_required(login_url='doctorlogin')
-# @user_passes_test(is_doctor)
+@user_passes_test(is_doctor)
 def doctor_dashboard_view(request):
     # for three cards
     patientcount = models.Patient.objects.all().filter(status=True, assignedDoctorId=request.user.id).count()
@@ -839,3 +842,10 @@ def diagnosis_add(request, id=None):
     mydict = {'diagnosisForm': diagnosisForm, }
 
     return render(request, 'clinic/doctor_diagnosis_add.html', mydict)
+
+
+
+@login_required(login_url='pharmacistlogin')
+@user_passes_test(is_pharmacist)
+def pharmacisty(request):
+    return render(request, 'clinic/pharmacist.html', )

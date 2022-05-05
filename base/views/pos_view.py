@@ -54,4 +54,4 @@ def cart_updated(request, id):
         number = int(request.POST.get('number'))
     product = get_object_or_404(Product, id=id)
     cart.add(product=product, quantity=number, update_quantity=True)
-    return redirect('pos_view')
+    return redirect('pharmacy/pos_view')

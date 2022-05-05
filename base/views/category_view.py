@@ -7,16 +7,16 @@ from base.models.category import Category
 from base.forms.category_form import CategoryForm
 
 
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
+@method_decorator(login_required(login_url='pharmacy/'), name='dispatch')
 class CategoryCreateView(SuccessMessageMixin, CreateView):
     template_name = 'category/create_category.html'
     success_message = "Category successfully created!"
     model = Category
     form_class = CategoryForm
-    success_url = '/create-category/'
+    success_url = 'create-category/'
 
 
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
+@method_decorator(login_required(login_url='pharmacy/'), name='dispatch')
 class CategoryListView(ListView):
     template_name = 'category/category_list.html'
     model = Category
@@ -28,11 +28,11 @@ class CategoryUpdateView(UpdateView):
     template_name = 'category/create_category.html'
     model = Category
     form_class = CategoryForm
-    success_url = '/category/'
+    success_url = 'category/'
 
 
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
+@method_decorator(login_required(login_url='pharmacy/'), name='dispatch')
 class CategoryDeleteView(DeleteView):
     template_name = 'category/category_confirm_delete.html'
     model = Category
-    success_url = '/category/'
+    success_url = 'category/'

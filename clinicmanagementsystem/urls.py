@@ -1,6 +1,7 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from clinic import views
+from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView, LogoutView
 
 # -------------FOR ADMIN RELATED URLS
@@ -22,6 +23,8 @@ urlpatterns = [
     path('adminlogin', LoginView.as_view(template_name='clinic/adminlogin.html')),
     path('doctorlogin', LoginView.as_view(template_name='clinic/doctorlogin.html')),
     path('patientlogin', LoginView.as_view(template_name='clinic/patientlogin.html')),
+    path('pharmacistlogin',
+         LoginView.as_view(template_name='clinic/pharmacistlogin.html',)),
 
     path('afterlogin', views.afterlogin_view, name='afterlogin'),
     path('logout', LogoutView.as_view(template_name='clinic/index.html'), name='logout'),
@@ -97,5 +100,6 @@ urlpatterns += [
 
     path('diagnosises', views.diagnosis_list, name='list_diagnosis'),
     path('add_diagnosis', views.diagnosis_add, name='add_diagnosis'),
-    path('history_diagnosis/<patient_id>', views.diagnosis_history_list, name='history_diagnosis')
+    path('history_diagnosis/<patient_id>', views.diagnosis_history_list, name='history_diagnosis'),
+    path('pharmacy/', include('posApp.urls')),
 ]

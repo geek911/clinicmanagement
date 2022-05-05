@@ -7,13 +7,13 @@ from base.models.tag import Tag
 from base.forms.tag_form import TagForm
 
 
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
+@method_decorator(login_required(login_url='pharmacy/'), name='dispatch')
 class CreateListTagView(SuccessMessageMixin, CreateView, ListView):
     template_name = 'tag/tag_list.html'
     model = Tag
     form_class = TagForm
     success_message = "Tag has been successfully created!"
-    success_url = '/tag/'
+    success_url = 'tag/'
     context_object_name = 'tag'
     paginate_by = 10
 
@@ -33,16 +33,16 @@ class CreateListTagView(SuccessMessageMixin, CreateView, ListView):
         return context
 
 
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
+@method_decorator(login_required(login_url='pharmacy/'), name='dispatch')
 class UpdateTagView(UpdateView):
     template_name = 'tag/tag_list.html'
     model = Tag
     form_class = TagForm
-    success_url = '/tag/'
+    success_url = 'pharmacy/tag/'
 
 
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
+@method_decorator(login_required(login_url='pharmacy/'), name='dispatch')
 class TagDeleteView(DeleteView):
     template_name = 'tag/tag_confirm_delete.html'
     model = Tag
-    success_url = '/tag/'
+    success_url = 'pharmacy/tag/'

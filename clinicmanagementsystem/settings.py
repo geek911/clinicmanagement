@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.contrib import messages
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
@@ -37,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'clinic',
     'widget_tweaks',
+    'base',
+    'posApp'
 ]
 
 MIDDLEWARE = [
@@ -136,3 +141,17 @@ EMAIL_HOST_PASSWORD = 'xyz'  # host email password required
 # otherwise you will get SMTPAuthenticationError at /contactus
 # this process is required because google blocks apps authentication by default
 EMAIL_RECEIVING_USER = ['to@gmail.com']  # email on which you will receive messages sent from website
+
+
+# Django Message Framework
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+MESSAGE_TAGS = {
+    messages.INFO: 'SUCCESS',
+    messages.ERROR: 'ERROR',
+    messages.WARNING: 'WARNING'
+}
+
+
+# Cart session
+CART_SESSION_ID = 'cart'

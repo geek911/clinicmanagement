@@ -8,7 +8,7 @@ from base.models.tag import Tag
 from base.models.inventory import Inventory
 
 
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
+@method_decorator(login_required(login_url='pharmacy/'), name='dispatch')
 class Dashboard(TemplateView):
     template_name = 'dashboard/dashboard.html'
 
